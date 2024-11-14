@@ -1,3 +1,4 @@
+import { useStoreQuiosco } from "@/stores/store"
 import { OrderItem } from "@/types"
 import { formatCurrency } from "@/utils"
 import { MinusIcon, PlusIcon, XCircleIcon } from "@heroicons/react/24/outline"
@@ -6,6 +7,8 @@ type ProductDetailsProps = {
   item: OrderItem
 }
 export default function ProductDetails({ item }: ProductDetailsProps) {
+
+  const increaseQuantity = useStoreQuiosco((state) => state.increaseQuantity)
   return (
     <div className="shadow space-y-1 p-4 bg-white  border-t border-gray-200 ">
       <div className="space-y-4">
@@ -36,7 +39,7 @@ export default function ProductDetails({ item }: ProductDetailsProps) {
 
           <button
             type="button"
-            onClick={() => { }}
+            onClick={() => increaseQuantity(item.id)}
           >
             <PlusIcon className="h-6 w-6" />
           </button>
