@@ -1,7 +1,7 @@
 "use client"
-import { useStore } from "@/store"
+import { useStoreQuiosco } from "@/stores/store"
 export default function OrderSummary() {
-  const order = useStore((state) => state.order)
+  const order = useStoreQuiosco((state) => state.order)
   return (
     <aside
       className="lg:h-screen lg:overflow-y-scroll md:w-64 lg:w-96 p-5"
