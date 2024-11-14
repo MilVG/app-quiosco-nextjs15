@@ -15,7 +15,10 @@ export default async function OrderSidebar() {
     >
       <nav className="mt-10">
         {categorires.map(category => (
-          <CategoryIcon />
+          <CategoryIcon
+            key={category.id}
+            category={category}
+          />
         ))}
       </nav>
     </aside>
