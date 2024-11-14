@@ -1,5 +1,6 @@
 "use client"
 import { useStoreQuiosco } from "@/stores/store"
+import ProductDetails from "./order/ProductDetails"
 export default function OrderSummary() {
   const order = useStoreQuiosco((state) => state.order)
   return (
@@ -10,7 +11,12 @@ export default function OrderSummary() {
 
       {order.length === 0 ? <p className="text-center my-10 text-black">El carrito está vacio</p> : (
         <div className="mt-5">
-          si hay algo
+          {order.map(item => (
+            <ProductDetails
+              key={item.id}
+              item={item}
+            />
+          ))}
         </div>
       )}
     </aside>
