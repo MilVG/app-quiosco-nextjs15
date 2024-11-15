@@ -1,5 +1,6 @@
 "use server"
 
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { OrderIdSchema } from "@/schema";
 
@@ -24,6 +25,8 @@ export async function completOrder(formData: FormData) {
           orderReadyAt: new Date(Date.now())
         }
       })
+
+      revalidatePath('/admin/orders')
     } catch (error) {
       console.log(error);
 
