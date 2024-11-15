@@ -3,6 +3,9 @@ import { useStoreQuiosco } from "@/stores/store"
 import ProductDetails from "./order/ProductDetails"
 import { useMemo } from "react"
 import { formatCurrency } from "@/utils"
+import { createOrder } from "@/actions/create-order-action"
+import { OrderSchema } from "@/schema"
+import { toast } from "react-toastify"
 export default function OrderSummary() {
   const order = useStoreQuiosco((state) => state.order)
 
@@ -10,9 +13,19 @@ export default function OrderSummary() {
     (total, item) =>
       total + (item.quantity * item.price), 0), [order])
 
-  const handleCreateOrder = () => {
-    console.log('desde el cliente');
+  const handleCreateOrder = (formData: FormData) => {
 
+    const data = {
+      name: formData.get('name')
+    }
+
+    const result = OrderSchema.safeParse(data)
+    if (!result.success) {
+      result.error.issues.forEach((issue) => {
+        toast.error(issue.message)
+      })
+    }
+    createOrder()
   }
   return (
     <aside
@@ -38,6 +51,12 @@ export default function OrderSummary() {
             className="w-full mt-10 space-y-5"
             action={handleCreateOrder}
           >
+            <input
+              type="text"
+              placeholder="Tu Nombre"
+              className="bg-white border border-gray-100 p-2 w-full"
+              name="name"
+            />
 
             <input
               type="submit"
