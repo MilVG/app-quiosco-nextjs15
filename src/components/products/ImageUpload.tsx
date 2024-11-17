@@ -15,7 +15,7 @@ export default function ImageUpload({ image }: { image: string | undefined }) {
       onSuccess={(result, { widget }) => {
         if (result.event === 'success') {
           widget.close()
-          //@ts-ignore
+          // @ts-expect-error: Cloudinary retorna un tipo inesperado, pero el valor es válido en tiempo de ejecución
           setImageUrl(result.info?.secure_url)
         }
       }}
