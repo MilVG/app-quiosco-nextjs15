@@ -27,7 +27,7 @@ export default function AddproductForm({ children }: { children: React.ReactNode
     }
 
     const response = await createProduct(result.data)
-    if (!response?.errors) {
+    if (response?.errors) {
       response?.errors.forEach(issue => {
         toast.error(issue.message)
       })
