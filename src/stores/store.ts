@@ -1,6 +1,7 @@
 import { create } from "zustand"
 import { OrderItem } from "../types"
 import { Product } from "@prisma/client"
+import { excludeKeys } from "@/utils"
 
 interface Store {
   order: OrderItem[]
@@ -14,7 +15,8 @@ export const useStoreQuiosco = create<Store>((set, get) => ({
   order: [],
   addToCard: (product) => {
 
-    const { categoryId, image, ...data } = product
+    //const { categoryId,image, ...data } = product
+    const data = excludeKeys(product, ['categoryId', 'image'])
     let order: OrderItem[] = []
 
     if (get().order.find(item => item.id === product.id)) {
