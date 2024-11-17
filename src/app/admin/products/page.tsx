@@ -25,10 +25,10 @@ async function getProducts(page: number, pageSize: number) {
 }
 export type ProductsWithCategory = Awaited<ReturnType<typeof getProducts>>
 
-
-export default async function ProductsPage({ searchParams }: { searchParams: { page?: string } }) {
-
-  const pageParam = searchParams.page || "1"
+type Params = Promise<{ page: string }>
+export default async function ProductsPage({ searchParams }: { searchParams: Params }) {
+  const pageparam = (await searchParams).page
+  const pageParam = pageparam || "1"
   const page = Number(pageParam)
   const pageSize = 10
 
